@@ -1,0 +1,9 @@
+li {
+    list-style-type: none;
+    width: 33vw;
+    margin: 2%;
+  }
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+  }
