@@ -33,6 +33,8 @@ FriendsList.defaultProps = {
 const mapStateToProps = state => {
     return {
         friends: state.friends,
+        fetching: state.fetching,
+        error: state.error,
     }
 }
 

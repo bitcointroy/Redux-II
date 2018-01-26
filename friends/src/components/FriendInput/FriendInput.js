@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getFriends } from '../../actions';
+import { getFriends, createFriend } from '../../actions';
 import { connect } from 'react-redux';
 
 class FriendInput extends Component {
@@ -9,6 +9,8 @@ class FriendInput extends Component {
         name: null,
         age: null,
         email: null,
+        addingFriend: false,
+        addedFriend: false,
       }
     
       inputChangeHandler = ({ target }) => {
@@ -19,15 +21,8 @@ class FriendInput extends Component {
 
       inputSubmitHandler = (event) => {
           event.preventDefault();
-          const url = 'http://localhost:5000/api/friends/create';
-          axios.post(url, this.state)
-            .then(this.props.getFriends())
-            .then(this.setState({
-                name: null,
-                age: null,
-                email: null,
-            }))
-            .catch(err => console.log('No friend added', err))
+          const { name, age, email } = this.state;
+          this.props.createFriend({ name, age, email });
       }
     
     render() {
@@ -44,8 +39,9 @@ class FriendInput extends Component {
 
 const mapStateToProps = state => {
     return {
-        state,
+        error: state.error,
+        addingFriend: state.addingFriend,
     }
 };
 
-export default connect (mapStateToProps, { getFriends })(FriendInput);
+export default connect (mapStateToProps, { getFriends, createFriend })(FriendInput);
