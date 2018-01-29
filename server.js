@@ -56,10 +56,13 @@ app.post('/api/friends/create', (req, res) => {
 });
 
 app.put('/api/friends/update', (req, res) => {
-  const { name, age, email } = req.body;
-  const updatedFriend = { name, age, email };
+  const { id, name, age, email } = req.body;
+  const updatedFriend = { id, name, age, email };
+  console.log('server', updatedFriend);
   const newFriends = friends.map(friend => {
-    return (friend = updatedFriend);
+    if ( id === friend.id ) {
+      return (friend = updatedFriend);
+    }
   });
   friends = newFriends;
   res.send(friends);

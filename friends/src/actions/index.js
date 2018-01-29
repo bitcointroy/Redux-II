@@ -6,6 +6,10 @@ export const GETTING_FRIENDS = 'GETTING_FRIENDS';
 export const FRIENDS_RECEIVED = 'FRIENDS_RECEIVED';
 export const ADDING_FRIEND = 'ADDING_FRIEND';
 export const FRIEND_ADDED = 'FRIEND_ADDED';
+export const DELETING_FRIEND = 'DELETING_FRIEND';
+export const FRIEND_DELETED = 'FRIEND_DELETED';
+export const UPDATING_FRIEND = 'UPDATING_FRIEND';
+export const FRIEND_UPDATED = 'FRIEND_UPDATED';
 export const ERROR = 'ERROR';
 
 export const createFriend = (friend) => {
@@ -32,5 +36,33 @@ export const getFriends = () => {
                 dispatch({ type: FRIENDS_RECEIVED, payload: data })
             })
             .catch(err => console.log(err));
+    }
+}
+
+export const deleteFriend = (id) => {
+    const deleteUrl = axios.delete('http://localhost:5000/api/friends/delete', {data: {id}});
+    return dispatch => {
+        deleteUrl
+            .then(({ data }) => {
+                dispatch({ type: FRIEND_DELETED, payload: data })
+            })
+            .catch(err => {
+                dispatch({ type: ERROR, payload: err })
+            })
+    }
+}
+
+export const updateFriend = (friend) => {
+    const putUrl = axios.put('http://localhost:5000/api/friends/update', friend);
+    return dispatch => {
+        console.log('friend', friend);
+        putUrl
+            .then(({ data }) => {
+                console.log(data)
+                dispatch({ type: FRIEND_UPDATED, payload: data })
+            })
+            .catch(err => {
+                dispatch({ type: ERROR, payload: err })
+            })
     }
 }

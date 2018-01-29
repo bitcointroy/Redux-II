@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { getFriends, createFriend } from '../../actions';
 import { connect } from 'react-redux';
 
